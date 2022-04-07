@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style: none;
+}
+body {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+}
+.clearfix{
+    zoom: 1;
+}
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+.lwo{
+    margin: 30px auto;
+    width: 1000px;
+}
+.lwo .image{
+    float: left;
+    width: 300px;
+}
+.lwo .info{
+    float: right;
+    width: 500px;
+}
+.lwo .info h2{
+    font-size: 30px;
+    font-weight: 400;
+    margin: 5px 0 20px;
+    text-transform: uppercase;
+}
+.lwo .info .inner{
+    margin-bottom: 18px;
+}
+.lwo .info p{
+    margin-bottom: 30px;
+}
+.lwo .info .back a{
+    border: 2px solid #333;
+    border-radius: 4px;
+    color: #333;
+    display: inline-block;
+    padding: 5px 20px 1px;
+    min-width: 70px;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.3s all;
+}
+.lwo .info .back a :hover{
+    background-color: #333;
+    color: white;
+}
