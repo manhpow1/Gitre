@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  ul {
+    list-style: none;
+  }
+  body {
+    color: rgb(22, 22, 22);
+    font-family: Helvetica,sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+  div.gallery{
+      margin: 5px;
+      border: 1px solid rgb(90, 83, 83);
+      float: left;
+      width: 600px;
+      transition: 0.3s all;
+  }
+  div.gallery:hover{
+      border: 1px rgb(17, 108, 131);
+      background: rgba(211, 35, 152, 0.644);
+
+}
+div.gallery img{
+    height: 600px;
+    width: 600px;
+    margin-right: 30px;
+    margin-bottom: 22px;
+}
+div.desc{
+    padding: 10px;
+    text-align: center;
+}
+div.text{
+    text-align: center;
+    padding: 15px;
+}
