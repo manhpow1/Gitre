@@ -21,7 +21,7 @@
   }
   div.gallery:hover{
       border: 1px rgb(17, 108, 131);
-      background: rgba(211, 35, 152, 0.644);
+      background: #105D97;
 
 }
 div.gallery img{
