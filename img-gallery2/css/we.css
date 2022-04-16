@@ -1,0 +1,22 @@
+body{
+    background-color: #170f23;
+}
+.zm-card-content .title {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.36;
+    color: var(--white);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+h3.title {
+    font-size: 18px;
+    color: var(--white);
+    margin-bottom: 10px;
+}
+.subtitle{
+    color:rgba(255, 255, 255, 0.5)
+}
+.zm-section-title.title{
+    margin-top: 16px;
+}
