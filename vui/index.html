@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css" id="alertifyCSS">
+        .alertify-logs>* {
+            padding: 12px 24px;
+            color: #fff;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 1px;
+        }
+
+        .alertify-logs>*,
+        .alertify-logs>.default {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .alertify-logs>.error {
+            background: rgba(244, 67, 54, 0.8);
+        }
+
+        .alertify-logs>.success {
+            background: rgba(76, 175, 80, 0.9);
+        }
+
+        .alertify {
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.3);
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .alertify.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .alertify,
+        .alertify.show {
+            box-sizing: border-box;
+            transition: all 0.33s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .alertify,
+        .alertify * {
+            box-sizing: border-box;
+        }
+
+        .alertify .dialog {
+            padding: 12px;
+        }
+
+        .alertify .alert,
+        .alertify .dialog {
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .alertify .alert>*,
+        .alertify .dialog>* {
+            width: 400px;
+            max-width: 95%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 12px;
+            background: #fff;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.14),
+                0 4px 5px 0 rgba(0, 0, 0, 0.098), 0 1px 10px 0 rgba(0, 0, 0, 0.084);
+        }
+
+        .alertify .alert .msg,
+        .alertify .dialog .msg {
+            padding: 12px;
+            margin-bottom: 12px;
+            margin: 0;
+            text-align: left;
+        }
+
+        .alertify .alert input:not(.form-control),
+        .alertify .dialog input:not(.form-control) {
+            margin-bottom: 15px;
+            width: 100%;
+            font-size: 100%;
+            padding: 12px;
+        }
+
+        .alertify .alert input:not(.form-control):focus,
+        .alertify .dialog input:not(.form-control):focus {
+            outline-offset: -2px;
+        }
+
+        .alertify .alert nav,
+        .alertify .dialog nav {
+            text-align: right;
+        }
+
+        .alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button),
+        .alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button) {
+            background: transparent;
+            box-sizing: border-box;
+            color: rgba(0, 0, 0, 0.87);
+            position: relative;
+            outline: 0;
+            border: 0;
+            display: inline-block;
+            -ms-flex-align: center;
+            -ms-grid-row-align: center;
+            align-items: center;
+            padding: 0 6px;
+            margin: 6px 8px;
+            line-height: 36px;
+            min-height: 36px;
+            white-space: nowrap;
+            min-width: 88px;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 2px;
+        }
+
+        .alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):active,
+        .alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):hover,
+        .alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):active,
+        .alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .alertify .alert nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):focus,
+        .alertify .dialog nav button:not(.btn):not(.pure-button):not(.md-button):not(.mdl-button):focus {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .alertify .alert nav button.btn,
+        .alertify .dialog nav button.btn {
+            margin: 6px 4px;
+        }
+
+        .alertify-logs {
+            position: fixed;
+            z-index: 1;
+        }
+
+        .alertify-logs.bottom,
+        .alertify-logs:not(.top) {
+            bottom: 16px;
+        }
+
+        .alertify-logs.left,
+        .alertify-logs:not(.right) {
+            left: 16px;
+        }
+
+        .alertify-logs.left>*,
+        .alertify-logs:not(.right)>* {
+            float: left;
+            transform: translateZ(0);
+            height: auto;
+        }
+
+        .alertify-logs.left>.show,
+        .alertify-logs:not(.right)>.show {
+            left: 0;
+        }
+
+        .alertify-logs.left>*,
+        .alertify-logs.left>.hide,
+        .alertify-logs:not(.right)>*,
+        .alertify-logs:not(.right)>.hide {
+            left: -110%;
+        }
+
+        .alertify-logs.right {
+            right: 16px;
+        }
+
+        .alertify-logs.right>* {
+            float: right;
+            transform: translateZ(0);
+        }
+
+        .alertify-logs.right>.show {
+            right: 0;
+            opacity: 1;
+        }
+
+        .alertify-logs.right>*,
+        .alertify-logs.right>.hide {
+            right: -110%;
+            opacity: 0;
+        }
+
+        .alertify-logs.top {
+            top: 0;
+        }
+
+        .alertify-logs>* {
+            box-sizing: border-box;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            clear: both;
+            backface-visibility: hidden;
+            perspective: 1000;
+            max-height: 0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .alertify-logs>.show {
+            margin-top: 12px;
+            opacity: 1;
+            max-height: 1000px;
+            padding: 12px;
+            pointer-events: auto;
+        }
+    </style>
+    <title>Vui Ghê Anime Vietsub Online</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="_token" id="token" value="" />
+    <meta name="_socket" id="socket" value="6001" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Vietnamese, English" />
+
+    <link rel="shortcut icon" href="https://vuighe.net/favicon.ico" type="image/x-icon" />
+
+    <meta name="description"
+        content="Xem anime Vietsub online miễn phí chất lượng cao với đường truyền nhanh, các anime HOT luôn được cập nhật sớm nhất Việt Nam" />
+    <meta name="keywords"
+        content="anime vietsub, xem anime, vui ghe, naruto, vua hai tac, one piece, hoi phap su, fairy tail, bleach, dragon ball, dao hai tac" />
+
+    <!-- Facebook Metadata /-->
+    <meta property="fb:app_id" content="196545913738468" />
+    <meta property="og:image" content="https://s199.imacdn.com/web-thumbnail.png" />
+    <meta property="og:url" content="https://vuighe.net" />
+    <meta property="og:description"
+        content="Xem anime Vietsub online miễn phí chất lượng cao với đường truyền nhanh, các anime HOT luôn được cập nhật sớm nhất Việt Nam" />
+    <meta property="og:title" content="Vui Ghê Anime Vietsub Online" />
+    <meta property="og:site_name" content="VuiGhe" />
+    <meta property="og:type" content="video.movie" />
+
+    <!-- Google+ Metadata /-->
+    <meta itemprop="name" content="Vui Ghê Anime Vietsub Online" />
+    <meta itemprop="description"
+        content="Xem anime Vietsub online miễn phí chất lượng cao với đường truyền nhanh, các anime HOT luôn được cập nhật sớm nhất Việt Nam" />
+    <meta itemprop="image" content="https://s199.imacdn.com/web-thumbnail.png" />
+
+    <!-- Google webmaster tools verification -->
+    <meta name="google-site-verification" content="X6wTJolQe36XUJJeyIxqPMs9YJ0dqJXfDdy1yksGNhA" />
+    <!-- Bing verification -->
+    <meta name="msvalidate.01" content="C21FDE84CE65ABA807746F89A0D2964C" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="Vui Ghê Anime Vietsub Online_files/home.css">
+</head>
+
+<body cz-shortcut-listen="true" data-new-gr-c-s-check-loaded="14.1062.0" data-gr-ext-installed="">
+    <header>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <div class="navbar-header">
+                    <div class="navbar-brand tet">
+                        <a class="logo" href="https://vuighe.net/">
+                            <img src="./Vui Ghê Anime Vietsub Online_files/logo_v8.png" alt="VuiGhe.Net" />
+                        </a>
+                    </div>
+                    <div class="navbar-menu-toggle" id="navbar-toggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                    <div class="navbar-header-user">
+                        <div class="user-login user-avatar" id="user-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div class="user-theme hidden-320" id="user-theme">
+                            <i class="fa-solid fa-circle-half-stroke"></i></i>
+                        </div>
+                        <div class="user-tos" id="user-tos">
+                            <a href="https://vuighe.net/page/chinh-sach-rieng-tu">
+                                <i class="fa-solid fa-circle-info"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar-left" id="navbar-left">
+                    <div class="navbar-search">
+                        <div class="search-box">
+                            <input type="text" name="search-box" placeholder="Tìm kiếm anime" autocomplete="off"/>
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div class="search-result" id="search-result">
+                            <div class="result-body ps-container ps-theme-default"
+                                data-ps-id="ef516211-c563-a8d9-b985-25d3011c079f">
+                                <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px">
+                                    <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px"></div>
+                                </div>
+                                <div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px">
+                                    <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px"></div>
+                                </div>
+                            </div>
+                            <div class="result-noitem hidden"></div>
+                            <div class="loading hidden"></div>
+                        </div>
+                    </div>
+                    <div class="navbar-menu">
+                        <div class="navbar-menu-item">
+                            <a href="https://vuighe.net/anime"><i class="icon icon-film"></i> Anime</a>
+                            <div class="menu-sub">
+                                <div class="menu-sub-container">
+                                    <div class="menu-sub-list" data-block="film">
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/engage-kiss"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/eed881f066064537_9a82d1362a7ecd30_3014516538344535118684.jpg" />
+                                                <div><span>Engage Kiss</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a
+                                                href="https://vuighe.net/kinsou-no-vermeil-gakeppuchi-majutsushi-wa-saikyou-no-yakusai-to-mahou-sekai-wo-tsukisusumu"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/e441c3c91d7fa7a0_133b977d836afc39_5638216538343647118684.jpg" />
+                                                <div>
+                                                    <span>Kinsou no Vermeil: Gakeppuchi Majutsushi wa
+                                                        Saikyou no Yakusai to Mahou Sekai wo
+                                                        Tsukisusumu</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/spriggan"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/2ceedf626b08fc77_8103ca39531bc17f_5068516536345127118684.jpg" />
+                                                <div><span>Spriggan</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/vampire-in-the-garden"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/8ca16fa6be0a123f_333ae6da97358ada_4227516526877459118684.jpg" />
+                                                <div><span>Vampire in the Garden</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/isekai-meikyuu-de-harem-wo"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/34b2ee9ca5a17c55_0103e48989a34819_5267716524686427118684.jpg" />
+                                                <div><span>Isekai Meikyuu de Harem wo</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/yofukashi-no-uta"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/96fb1a23e208aacd_069dc893cf26f99a_4414316523887036118684.jpg" />
+                                                <div><span>Yofukashi no Uta</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a
+                                                href="https://vuighe.net/tensei-kenja-no-isekai-life-dai-2-no-shokugyou-wo-ete-sekai-saikyou-ni-narimashita"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/bf5e1d49a6e65b9c_2aa357c8fdb78d78_4367116521719627118684.jpg" />
+                                                <div>
+                                                    <span>Tensei Kenja no Isekai Life: Dai-2 no Shokugyou
+                                                        wo Ete, Sekai Saikyou ni Narimashita</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/soredemo-ayumu-wa-yosetekuru"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/691749b6281b18d0_6df2acf58c9cc613_2537116521718196118684.jpg" />
+                                                <div>
+                                                    <span>Soredemo Ayumu wa Yosetekuru</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="navbar-menu-item">
+                            <a href="https://vuighe.net/movie"><i class="icon icon-camera"></i> Movie</a>
+                            <div class="menu-sub">
+                                <div class="menu-sub-container">
+                                    <div class="menu-sub-list" data-block="movie" data-limit="8">
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/dragon-ball-super-super-hero"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/43fe43de19a7e9a0_46caf64600e28459_3566916527819018118684.jpg" />
+                                                <div>
+                                                    <span>Dragon Ball Super: Super Hero</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/koukaku-kidoutai-sac-2045-jizoku-kanou-sensou"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/f5cbf7851820a58d_370e0ad8022e42ce_3471316521755813118684.jpg" />
+                                                <div>
+                                                    <span>Koukaku Kidoutai: SAC_2045 - Jizoku Kanou
+                                                        Sensou</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/ai-no-utagoe-wo-kikasete"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/2ec92af947e34d07_def5488874fff15f_4684516521757167118684.jpg" />
+                                                <div><span>Ai no Utagoe wo Kikasete</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/belle-ryuu-to-sobakasu-no-hime"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/c171fa8c56383148_e88aac259f7ae204_3375616521757425118684.jpg" />
+                                                <div>
+                                                    <span>Belle: Ryuu to Sobakasu no Hime</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/bubble"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/235a4792e43d5189_eeda4669c9bdd6a9_4475816521757788118684.jpg" />
+                                                <div><span>Bubble</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/summer-ghost"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/46b14fbb8eda72b5_215d183116e47567_2710416521759699118684.jpg" />
+                                                <div><span>Summer Ghost</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/human-lost-ningen-shikkaku"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/400eaf18aa013565_a1f062c3d066bffe_3181016521759499118684.jpg" />
+                                                <div><span>Human Lost: Ningen Shikkaku</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a
+                                                href="https://vuighe.net/boku-no-hero-academia-the-movie-3-world-heroes-mission"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/60d9ec105fc74b7a_96479a69d037e94f_5471716521759276118684.jpg" />
+                                                <div>
+                                                    <span>Boku no Hero Academia the Movie 3: World Heroes'
+                                                        Mission</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="navbar-menu-item">
+                            <a href="https://vuighe.net/tin-tuc"><i class="icon icon-news"></i> Tin Tức</a>
+                            <div class="menu-sub">
+                                <div class="menu-sub-container">
+                                    <div class="menu-sub-list" data-block="news">
+                                        <div class="menu-sub-item">
+                                            <a href="https://tinanime.com/6-nam-1-su-menh-chuc-mung-sinh-nhat-tinanime"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/cdcd8d77786c675c_1df3897387d9b919_7283016525436507185710.jpg" />
+                                                <div>
+                                                    <span>6 năm, 1 sứ mệnh! - Chúc mừng sinh nhật
+                                                        TinAnime!</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://tinanime.com/yoru-wa-neko-to-issho-cuoc-song-cua-hoang-thuong-va-con-sen"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/dc6f3251bc187bd8_7d1bb2f79cc30037_4847616536679079185710.jpg" />
+                                                <div>
+                                                    <span>Yoru wa Neko to Issho - Cuộc sống của "hoàng
+                                                        thượng" và "con sen"!</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://tinanime.com/shoot-goal-to-the-future-thoa-suc-dam-me-voi-bong-da"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/e3557b1a4d03273d_82c8a5f10a76f993_5023816536667635185710.jpg" />
+                                                <div>
+                                                    <span>Shoot! Goal to the Future - Thỏa sức đam mê với
+                                                        bóng đá!</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://tinanime.com/he-mo-mot-so-phan-canh-hot-trong-dragon-ball-super-super-hero"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/c75c11ebf07976cd_e4caa6b0a55b5f67_3469416536620538185710.jpg" />
+                                                <div>
+                                                    <span>Hé mở một số phân cảnh hot trong Dragon Ball
+                                                        Super: Super Hero!</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://tinanime.com/manga-dracula-yakin-ma-ca-rong-lam-dem-chinh-thuc-ket-thuc"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/97c164c3fa1682dd_47b8fa5d224ad2af_7402916536413543185710.jpg" />
+                                                <div>
+                                                    <span>Manga Dracula Yakin! - Ma Cà Rồng Làm Đêm chính
+                                                        thức kết thúc!</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://tinanime.com/chieu-thuc-moi-gear-5-cua-luffy-se-co-the-xuat-hien-tren-one-piece-film-red"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/6c21d3ab2b6f3258_40a62878d3ee4e54_7711316536395936185710.jpg" />
+                                                <div>
+                                                    <span>Chiêu thức mới Gear 5 của Luffy sẽ có thể xuất
+                                                        hiện trên One Piece Film Red!</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://tinanime.com/rwby-hyousetsu-teikoku-nu-biet-doi-tho-san"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/84f1ba98ad9c77d1_158c56e4c723a12d_4907916536359727185710.jpg" />
+                                                <div>
+                                                    <span>RWBY: Hyousetsu Teikoku - Nữ biệt đội thợ
+                                                        săn!</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://tinanime.com/anime-spriggan-tiep-tuc-tung-them-trailer-moi"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/b3b40b1f0bcd8036_247a128b3712a7c6_3873716536309472734221.jpg" />
+                                                <div>
+                                                    <span>Anime Spriggan tiếp tục tung thêm trailer
+                                                        mới</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="navbar-menu-item">
+                            <a href="https://vuighe.net/truyen-tranh"><i class="icon icon-book"></i> Truyện</a>
+                            <div class="menu-sub">
+                                <div class="menu-sub-container">
+                                    <div class="menu-sub-list" data-block="manga">
+                                        <div class="menu-sub-item">
+                                            <a href="https://truyentranh24z.com/that-girl-is-not-just-cute"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/ac812a82997e166c_9d6231f3d55f6afc_4677016359110718828291.jpg" />
+                                                <div><span>THAT GIRL IS NOT JUST CUTE</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://truyentranh24z.com/jujutsu-kaisen-chu-thuat-hoi-chien"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/01a09374ac1a1d91_c9816e11fc75cd73_705931611141384345957.jpg" />
+                                                <div>
+                                                    <span>Jujutsu Kaisen - Chú Thuật Hồi Chiến</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://truyentranh24z.com/saisei-jutsu-souda-baikoku-shiyou"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/5876e1a48bbdbc99_e52a5c5e9fc83a52_7639216424729412828291.jpg" />
+                                                <div>
+                                                    <span>Saisei Jutsu - Souda, Baikoku Shiyou</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://truyentranh24z.com/gia-dinh-cua-nhung-chiec-bong"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/82b1dcb6b35f061b_5ce604a654fefb9e_47461164352654959674.jpg" />
+                                                <div>
+                                                    <span>Gia Đình Của Những Chiếc Bóng</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://truyentranh24z.com/ao-ashi" target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/0a9c436dc061a966_64eb43916a1608b3_79846164690142169674.jpg" />
+                                                <div><span>Ao Ashi</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://truyentranh24z.com/jashin-chan-dropkick"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/e9596093b3d9f507_5fedd6eb89b5b269_58578158385660089674.jpg" />
+                                                <div><span>Jashin-chan Dropkick</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://truyentranh24z.com/kaguya-sama-wa-kokurasetai-tensai-tachi-no-renai-zunousen"
+                                                target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/dc11c507e5734464_b386a36fb5ffa1b7_53481158348037279674.jpg" />
+                                                <div>
+                                                    <span>Kaguya-sama wa Kokurasetai?: Tensai-tachi no
+                                                        Renai Zunousen</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://truyentranh24z.com/tokyorevengers" target="_blank"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/b6b7bc82763d7c30_0980e4a681407e45_1003881593080798845957.jpg" />
+                                                <div><span>Tokyo卍Revengers</span></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="navbar-menu-item">
+                            <a href="https://vuighe.net/bang-xep-hang"><i class="icon icon-chart"></i> BXH</a>
+                            <div class="menu-sub">
+                                <div class="menu-sub-container">
+                                    <div class="menu-sub-list" data-block="ranking">
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/world-trigger"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/a06e240a491f82b6_c6c1306b9b54b6ae_4667516152215634118684.jpg" />
+                                                <div><span>World Trigger</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/boruto-naruto-next-generations"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/e3c93e9e3ae4c4d1_9a3a2fe806b4ffc6_3775516209096674118684.jpg" />
+                                                <div>
+                                                    <span>Boruto: Naruto Next Generations</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/spy-x-family"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/9033666346a72bc2_d4267122238d3fb6_2660616478676412118684.jpg" />
+                                                <div><span>Spy x Family</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/conan-the-movie"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/6c040a27770ec024_ded1b5147578648e_5019215641124505185710.jpg" />
+                                                <div><span>Conan The Movie</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/otome-game-sekai-wa-mob-ni-kibishii-sekai-desu"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/6cbbc8a7af5408ea_0b18567a12d590e6_5652916490048529118684.jpg" />
+                                                <div>
+                                                    <span>Otome Game Sekai wa Mob ni Kibishii Sekai
+                                                        desu</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/baki-2018"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/d54ed5f23a9d09c6_590322fbd994ef64_3603615912622278118684.jpg" />
+                                                <div><span>Baki (2018)</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/naruto-shippuuden"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/7c868aa86063686d_d749742c8f567c0c_44135146734386613.jpg" />
+                                                <div><span>Naruto Shippuuden</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="menu-sub-item">
+                                            <a href="https://vuighe.net/hoi-phap-su"><img
+                                                    src="./Vui Ghê Anime Vietsub Online_files/18d2e2d92334fdb5_d0fe7260203bdfe0_15273516249815073118684.jpg" />
+                                                <div><span>Hội Pháp Sư</span></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navbar-close">
+                        <i class="icon-close"></i>
+                    </div>
+                    <div class="navbar-brand tet">
+                        <a class="logo" href="https://vuighe.net/"><img
+                                src="./Vui Ghê Anime Vietsub Online_files/logo_v8.png" alt="VuiGhe.Net" /></a>
+                    </div>
+                </div>
+                <div class="navbar-right" id="navbar-right">
+                    <div class="navbar-user navbar-user-header">
+                        <div class="user-avatar big-avatar">
+                            <i class="icon-person"></i>
+                        </div>
+                        <div class="navbar-user-welcome">
+                            <span>Chào khách!</span>
+                        </div>
+                        <div class="navbar-user-tab">
+                            <div class="navbar-user-tab-item navbar-tab-login activated" data-tab="login">
+                                Đăng nhập
+                            </div>
+                            <div class="navbar-user-tab-item navbar-tab-signup" data-tab="signup">
+                                Đăng ký
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="navbar-user-body tab-login ps-container ps-theme-default"
+                        data-ps-id="c64c1d23-9af6-dedf-6c4d-d2ef666c6cd0" style="max-height: 760px">
+                        <div class="navbar-form-group">
+                            <label>Tên đăng nhập</label>
+                            <input type="text" name="username" />
+                            <i class="icon icon-person"></i>
+                            <span class="tip"></span>
+                        </div>
+                        <div class="navbar-form-group">
+                            <label>Mật khẩu</label>
+                            <input type="password" name="password" />
+                            <i class="icon icon-lock"></i>
+                            <span class="tip"></span>
+                        </div>
+                        <div class="navbar-form-group">
+                            <label class="navbar-form-checkbox">
+                                <input type="checkbox" name="remember" checked="" />
+                                <span>Ghi nhớ</span>
+                            </label>
+                            <a href="https://vuighe.net/quen-mat-khau" class="forgot-password">Quên mật khẩu</a>
+                        </div>
+                        <div class="navbar-form-group hidden">
+                            <ul id="form-login-warning"></ul>
+                        </div>
+                        <div class="navbar-form-group submit">
+                            <input class="vuighe" id="login" type="button" name="submit" value="Đăng nhập" />
+                        </div>
+                        <hr />
+                        <div class="navbar-form-group">
+                            <a class="social-login" href="https://vuighe.net/dang-nhap-facebook">
+                                <input type="button" class="facebook" value="Đăng nhập với Facebook" />
+                                <i class="icon icon-facebook"></i>
+                            </a>
+                        </div>
+                        <div class="navbar-form-group">
+                            <a class="social-login" href="https://vuighe.net/dang-nhap-google">
+                                <input type="button" class="google" value="Đăng nhập với Google" />
+                                <i class="icon icon-google"></i>
+                            </a>
+                        </div>
+                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px">
+                            <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px"></div>
+                        </div>
+                        <div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px">
+                            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px"></div>
+                        </div>
+                    </div>
+
+                    <div class="navbar-user-body tab-signup hidden ps-container ps-theme-default"
+                        data-ps-id="fc83b117-6c26-f283-47b5-cb2dec571bb4" style="max-height: 760px">
+                        <div class="navbar-form-group">
+                            <label>Tên đăng nhập</label>
+                            <input type="text" name="username" />
+                            <i class="icon icon-person"></i>
+                            <span class="tip"></span>
+                        </div>
+                        <div class="navbar-form-group">
+                            <label>Mật khẩu</label>
+                            <input type="password" name="password" />
+                            <i class="icon icon-lock"></i>
+                            <span class="tip"></span>
+                        </div>
+                        <div class="navbar-form-group">
+                            <label>Nhập lại mật khẩu</label>
+                            <input type="password" name="password_confirm" />
+                            <i class="icon icon-lock"></i>
+                            <span class="tip"></span>
+                        </div>
+                        <div class="navbar-form-group">
+                            <label>Tên hiển thị</label>
+                            <input type="text" name="full_name" />
+                            <i class="icon icon-comment"></i>
+                            <span class="tip"></span>
+                        </div>
+                        <div class="navbar-form-group">
+                            <label>Email</label>
+                            <input type="text" name="email" />
+                            <i class="icon icon-email"></i>
+                            <span class="tip"></span>
+                        </div>
+                        <div class="navbar-form-group">
+                            <label>Giới tính</label>
+                            <label class="navbar-form-radio">
+                                <input type="radio" name="gender" value="1" checked="" />
+                                <span>Nam</span>
+                            </label>
+                            <label class="navbar-form-radio">
+                                <input type="radio" name="gender" value="0" />
+                                <span>Nữ</span>
+                            </label>
+                        </div>
+                        <div class="navbar-form-group birthday">
+                            <div class="navbar-form-select day">
+                                <label>Ngày sinh</label>
+                                <input type="number" name="birthday" min="1" max="31" />
+                            </div>
+                            <div class="navbar-form-select month">
+                                <label>Tháng sinh</label>
+                                <input type="number" name="birthmonth" min="1" max="12" />
+                            </div>
+                            <div class="navbar-form-select year">
+                                <label>Năm sinh</label>
+                                <input type="number" name="birthyear" min="1970" max="2010" />
+                            </div>
+                            <span class="tip"></span>
+                        </div>
+                        <div class="navbar-form-group hidden">
+                            <ul id="form-signup-warning"></ul>
+                        </div>
+                        <div class="navbar-form-group submit">
+                            <input class="vuighe" id="signup" type="button" name="submit" value="Đăng ký" />
+                        </div>
+                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px">
+                            <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px"></div>
+                        </div>
+                        <div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px">
+                            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px"></div>
+                        </div>
+                    </div>
+                    <div class="loading hidden"></div>
+                    <div class="navbar-close">
+                        <i class="icon-close"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="masthead banner-masthead"></div>
+
+        <div class="slider-wrapper">
+            <div class="slider-container">
+                <div class="slider-cover">
+                    <div class="slider-progress-bar">
+                        <div class="slider-progress"></div>
+                    </div>
+                    <a class="slider-link" href="https://vuighe.net/summertime-render/tap-7-ke-thu"></a>
+                    <div class="slider-play-button">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                    <div class="slider-meta">
+                        <span class="slider-views">95,210 lượt xem</span>
+                        <div class="slider-title">Summertime Render</div>
+                    </div>
+                    <img class="activated"
+                        src="./Vui Ghê Anime Vietsub Online_files/dec8eac4313b8f21_8873c5fda2dc8b4f_4582016480410141118684.jpg"
+                        data-src="https://s199.imacdn.com/vg/2022/03/23/dec8eac4313b8f21_8873c5fda2dc8b4f_4582016480410141118684.jpg"
+                        alt="Summertime Render" />
+                </div>
+                <div class="slider-item" data-title="Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen"
+                    data-views="1,987,956 lượt xem">
+                    <a
+                        href="https://vuighe.net/kaguya-sama-wa-kokurasetai-tensai-tachi-no-renai-zunousen/tap-32-kei-shirogane-muon-the-hien-chuyen-ve-kaguya-shinomiya-phan-2-kaguya-sama-muon-to-tinhass">
+                        <img class="slider-item-img"
+                            src="./Vui Ghê Anime Vietsub Online_files/c1aa39293c5ab28a_ba194e04c16acd98_25004316480362556118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/03/23/c1aa39293c5ab28a_ba194e04c16acd98_25004316480362556118684.jpg"
+                            alt="Kaguya-sama wa Kokurasetai: Tensai-tachi no Renai Zunousen" />
+                    </a>
+                </div>
+                <div class="slider-item" data-title="Tomodachi Game" data-views="91,503 lượt xem">
+                    <a
+                        href="https://vuighe.net/tomodachi-game/tap-8-day-la-tro-choi-noi-ta-cho-doi-va-cho-doi-va-cho-doiva-tiep-tuc-cho-doi">
+                        <img class="slider-item-img"
+                            src="./Vui Ghê Anime Vietsub Online_files/36b4627cc00756d8_1508b8decf0e730a_53012716498674109118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/04/13/36b4627cc00756d8_1508b8decf0e730a_53012716498674109118684.jpg"
+                            alt="Tomodachi Game" />
+                    </a>
+                </div>
+                <div class="slider-item" data-title="Shijou Saikyou no Daimaou, Murabito A ni Tensei suru"
+                    data-views="230,574 lượt xem">
+                    <a href="https://vuighe.net/shijou-saikyou-no-daimaou-murabito-a-ni-tensei-suru/tap-8">
+                        <img class="slider-item-img"
+                            src="./Vui Ghê Anime Vietsub Online_files/efaed638fb29b6ef_7a5b5a91d691bf48_47388816481221477118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/03/24/efaed638fb29b6ef_7a5b5a91d691bf48_47388816481221477118684.jpg"
+                            alt="Shijou Saikyou no Daimaou, Murabito A ni Tensei suru" />
+                    </a>
+                </div>
+                <div class="slider-item" data-title="Kakkou no Iinazuke" data-views="87,850 lượt xem">
+                    <a href="https://vuighe.net/kakkou-no-iinazuke/tap-5-chung-ta-cung-hoc-bai-buoi-sang-nhe">
+                        <img class="slider-item-img"
+                            src="./Vui Ghê Anime Vietsub Online_files/e9ba6b39c946a642_4415a96836e029b9_3643841648094617861628.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/03/24/e9ba6b39c946a642_4415a96836e029b9_3643841648094617861628.jpg"
+                            alt="Kakkou no Iinazuke" />
+                    </a>
+                </div>
+                <div class="slider-item" data-title="Tate no Yuusha no Nariagari" data-views="3,776,297 lượt xem">
+                    <a href="https://vuighe.net/tate-no-yuusha-no-nariagari/tap-33">
+                        <img class="slider-item-img"
+                            src="./Vui Ghê Anime Vietsub Online_files/3450327ed09a121a_cbcf1af85eca6ca7_54903416480426926118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/03/23/3450327ed09a121a_cbcf1af85eca6ca7_54903416480426926118684.jpg"
+                            alt="Tate no Yuusha no Nariagari" />
+                    </a>
+                </div>
+                <div class="slider-item" data-title="Komi-san wa, Comyushou desu." data-views="1,542,168 lượt xem">
+                    <a href="https://vuighe.net/komi-san-wa-comyushou-desu/tap-20-chuyen-di-da-ngoai">
+                        <img class="slider-item-img"
+                            src="./Vui Ghê Anime Vietsub Online_files/d8fee77267b28507_5ecea58161a03d8a_2225981633864797661628.jpg"
+                            data-src="https://s199.imacdn.com/vg/2021/10/10/d8fee77267b28507_5ecea58161a03d8a_2225981633864797661628.jpg"
+                            alt="Komi-san wa, Comyushou desu." />
+                    </a>
+                </div>
+                <div class="slider-item" data-title="Dấu Ấn Rồng Thiêng (2020)" data-views="1,744,371 lượt xem">
+                    <a href="https://vuighe.net/dau-an-rong-thieng-2020/tap-79-hym-toc-bac">
+                        <img class="slider-item-img"
+                            src="./Vui Ghê Anime Vietsub Online_files/93006b4e08080e25_580b6b5544b1ebe9_14803816349895819118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2021/10/23/93006b4e08080e25_580b6b5544b1ebe9_14803816349895819118684.jpg"
+                            alt="Dấu Ấn Rồng Thiêng (2020)" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest episodes -->
+        <section class="tray episode">
+            <div class="tray-title">
+                <a class="" href="https://vuighe.net/tap-moi-nhat">
+                    <h1>Tập Mới Nhất</h1>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
+            <div class="tray-content index">
+                <div class="tray-item" data-has-preview="0">
+                    <a
+                        href="https://vuighe.net/otome-game-sekai-wa-mob-ni-kibishii-sekai-desu/tap-9-vi-toi-chi-la-nguoi-dung">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/1e9a0906a929ee69_e54bb7b81f934ca2_2606616538416329118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/29/1e9a0906a929ee69_e54bb7b81f934ca2_2606616538416329118684.jpg"
+                            alt="Otome Game Sekai wa Mob ni Kibishii Sekai desu Tập 9 - Vì tôi chỉ là người dưng" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Otome Game Sekai wa Mob ni Kibishii Sekai desu
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 9 - Vì tôi chỉ là người dưng</span>
+                                <span class="tray-episode-views">6,077 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/build-divide/tap-20-the-gioi-phan-tach">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/2bee3a75d0f77f4b_4c92f19c5c4b2fdf_2897416538336839118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/29/2bee3a75d0f77f4b_4c92f19c5c4b2fdf_2897416538336839118684.jpg"
+                            alt="Build Divide Tập 20 - Thế giới phân tách" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Build Divide</div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 20 - Thế giới phân tách</span>
+                                <span class="tray-episode-views">545 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/kawaii-dake-ja-nai-shikimori-san/tap-7">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/de3841cba0a45178_754da8d3b75cba70_2538116538335825118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/29/de3841cba0a45178_754da8d3b75cba70_2538116538335825118684.jpg"
+                            alt="Kawaii dake ja Nai Shikimori-san Tập 7 - Lễ hội văn hóa I" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Kawaii dake ja Nai Shikimori-san
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 7 - Lễ hội văn hóa I</span>
+                                <span class="tray-episode-views">2,327 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/boruto-naruto-next-generations/tap-251-quyet-tam-cua-hai-nguoi">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/1cdb7aa89bc74330_6b13643ede30e0e6_12983816538204926129205.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/29/1cdb7aa89bc74330_6b13643ede30e0e6_12983816538204926129205.jpg"
+                            alt="Boruto: Naruto Next Generations Tập 251 - Quyết tâm của hai người" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Boruto: Naruto Next Generations
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 251 - Quyết tâm của hai người</span>
+                                <span class="tray-episode-views">10,792 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a
+                        href="https://vuighe.net/rikei-ga-koi-ni-ochita-no-de-shoumei-shitemita/tap-21-nha-khoa-hoc-roi-vao-nen-thu-chuan-bi-cho-mot-le-hoi-truong">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/67cd7c6271830ebf_16bfa4d401e166ce_3637516537537234118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/28/67cd7c6271830ebf_16bfa4d401e166ce_3637516537537234118684.jpg"
+                            alt="Rikei ga Koi ni Ochita no de Shoumei shitemita Tập 21 - Nhà khoa học rơi vào, nên thử chuẩn bị cho một lễ hội trường." />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Rikei ga Koi ni Ochita no de Shoumei shitemita
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 21 - Nhà khoa học rơi vào, nên thử chuẩn bị cho một
+                                    lễ
+                                    hội trường.</span>
+                                <span class="tray-episode-views">2,303 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/kunoichi-tsubaki-no-mune-no-uchi/tap-8-doi-manh-nhat">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/7f83c15e3284eaf0_c4622ff7f015122a_3509516538115456118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/29/7f83c15e3284eaf0_c4622ff7f015122a_3509516538115456118684.jpg"
+                            alt="Kunoichi Tsubaki no Mune no Uchi Tập 8 - Đội mạnh nhất" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Kunoichi Tsubaki no Mune no Uchi
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 8 - Đội mạnh nhất</span>
+                                <span class="tray-episode-views">986 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/spy-x-family/tap-8">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/2e512d004d2f1228_39e8ea47e003f0b5_7367716538136761118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/29/2e512d004d2f1228_39e8ea47e003f0b5_7367716538136761118684.jpg"
+                            alt="Spy x Family Tập 8 - Chiến lược ngụy trang qua mắt cảnh sát mật vụ" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Spy x Family</div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 8 - Chiến lược ngụy trang qua mắt cảnh sát mật
+                                    vụ</span>
+                                <span class="tray-episode-views">28,884 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/heroine-tarumono-kiraware-heroine-to-naisho-no-oshigoto/tap-8-lam-idol">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/5ab39b9392beec8b_710716fd0d80034b_3562716537290724118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/28/5ab39b9392beec8b_710716fd0d80034b_3562716537290724118684.jpg"
+                            alt="Heroine Tarumono! Kiraware Heroine to Naisho no Oshigoto Tập 8 - Làm Idol!" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Heroine Tarumono! Kiraware Heroine to Naisho no Oshigoto
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 8 - Làm Idol!</span>
+                                <span class="tray-episode-views">2,221 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/koi-wa-sekai-seifuku-no-ato-de/tap-8-ai-cung-co-vai-bi-mat">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/06dedb2ada3cadbd_87eb6c4a71990fa6_2603816537287039118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/28/06dedb2ada3cadbd_87eb6c4a71990fa6_2603816537287039118684.jpg"
+                            alt="Koi wa Sekai Seifuku no Ato de Tập 8 - Ai cũng có vài bí mật" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Koi wa Sekai Seifuku no Ato de
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 8 - Ai cũng có vài bí mật</span>
+                                <span class="tray-episode-views">2,823 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/shokei-shoujo-no-virgin-road/tap-9-o-buoi-tiec">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/c523ff7ed5aa746e_94456f82a305e6f4_2133316537285158118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/28/c523ff7ed5aa746e_94456f82a305e6f4_2133316537285158118684.jpg"
+                            alt="Shokei Shoujo no Virgin Road Tập 9 - Ở buổi tiệc" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Shokei Shoujo no Virgin Road</div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 9 - Ở buổi tiệc</span>
+                                <span class="tray-episode-views">1,913 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/dau-an-rong-thieng-2020/tap-79-hym-toc-bac">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/eab53e6642fe1c4b_5c345d541afe9530_13998116537260402118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/28/eab53e6642fe1c4b_5c345d541afe9530_13998116537260402118684.jpg"
+                            alt="Dấu Ấn Rồng Thiêng (2020) Tập 79 - Hym tóc bạc" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Dấu Ấn Rồng Thiêng (2020)</div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 79 - Hym tóc bạc</span>
+                                <span class="tray-episode-views">4,485 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="tray-item" data-has-preview="0">
+                    <a href="https://vuighe.net/aharen-san-wa-hakarenai/tap-9-hinh-nhu-bi-cam-thi-phai">
+                        <img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/f8a2c3c739300641_762a887b37eed44f_2943416537155656118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/05/28/f8a2c3c739300641_762a887b37eed44f_2943416537155656118684.jpg"
+                            alt="Aharen-san wa Hakarenai Tập 9 - Hình như bị cảm thì phải?" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Aharen-san wa Hakarenai</div>
+                            <div class="tray-item-meta-info">
+                                <span class="tray-episode-name">Tập 9 - Hình như bị cảm thì phải?</span>
+                                <span class="tray-episode-views">4,910 lượt xem</span>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button">
+                            <i class="fa-solid fa-play"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- END latest episodes -->
+
+        <section class="tray news" data-type="ajax" data-block="news">
+            <div class="tray-title">
+                <a class="" href="https://tinanime.com/" target="_blank">
+                    <h2>Tin Anime</h2>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
+            <div class="tray-content index">
+                <div class="news-item">
+                    <a href="https://tinanime.com/6-nam-1-su-menh-chuc-mung-sinh-nhat-tinanime" target="_blank"><img
+                            class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/cdcd8d77786c675c_1df3897387d9b919_7283016525436507185710.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                6 năm, 1 sứ mệnh! - Chúc mừng sinh nhật TinAnime!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/yoru-wa-neko-to-issho-cuoc-song-cua-hoang-thuong-va-con-sen"
+                        target="_blank"><img class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/dc6f3251bc187bd8_7d1bb2f79cc30037_4847616536679079185710.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Yoru wa Neko to Issho - Cuộc sống của "hoàng thượng" và "con
+                                sen"!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/shoot-goal-to-the-future-thoa-suc-dam-me-voi-bong-da"
+                        target="_blank"><img class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/e3557b1a4d03273d_82c8a5f10a76f993_5023816536667635185710.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Shoot! Goal to the Future - Thỏa sức đam mê với bóng đá!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/he-mo-mot-so-phan-canh-hot-trong-dragon-ball-super-super-hero"
+                        target="_blank"><img class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/c75c11ebf07976cd_e4caa6b0a55b5f67_3469416536620538185710.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Hé mở một số phân cảnh hot trong Dragon Ball Super: Super
+                                Hero!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/manga-dracula-yakin-ma-ca-rong-lam-dem-chinh-thuc-ket-thuc"
+                        target="_blank"><img class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/97c164c3fa1682dd_47b8fa5d224ad2af_7402916536413543185710.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Manga Dracula Yakin! - Ma Cà Rồng Làm Đêm chính thức kết thúc!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/chieu-thuc-moi-gear-5-cua-luffy-se-co-the-xuat-hien-tren-one-piece-film-red"
+                        target="_blank"><img class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/6c21d3ab2b6f3258_40a62878d3ee4e54_7711316536395936185710.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Chiêu thức mới Gear 5 của Luffy sẽ có thể xuất hiện trên One
+                                Piece Film Red!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/rwby-hyousetsu-teikoku-nu-biet-doi-tho-san" target="_blank"><img
+                            class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/84f1ba98ad9c77d1_158c56e4c723a12d_4907916536359727185710.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                RWBY: Hyousetsu Teikoku - Nữ biệt đội thợ săn!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/anime-spriggan-tiep-tuc-tung-them-trailer-moi" target="_blank"><img
+                            class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/b3b40b1f0bcd8036_247a128b3712a7c6_3873716536309472734221.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Anime Spriggan tiếp tục tung thêm trailer mới
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/nhung-vi-lanh-chua-gia-mao-shin-shincho-koki-nobunaga-kun-to-watashi"
+                        target="_blank"><img class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/34eb986303d57307_6a23d44777327a11_5103216536277213734221.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Những vị lãnh chúa giả mạo - Shin Shincho Koki - Nobunaga-kun
+                                to Watashi
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/netizen-phat-sot-voi-trailer-suzume-no-tojimari-phien-ban-doraemon"
+                        target="_blank"><img class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/70992425c1ef4111_cc8860e1faf238b3_3397916535819982185710.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Netizen phát sốt với trailer Suzume no Tojimari phiên bản
+                                Doraemon!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/kami-kuzu-idol-san-sang-tro-thanh-bong-ma-cua-than-tuong"
+                        target="_blank"><img class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/444c8e49bcf746d1_184385e57ce291cd_7589516535826088185710.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Kami Kuzu Idol - Sẵn sàng trở thành bóng ma của thần tượng!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="news-item">
+                    <a href="https://tinanime.com/tac-gia-hunter-x-hunter-moi-chi-lap-tai-khoan-twitter-1-ngay-da-thu-ve-1-trieu-luot-theo-doi"
+                        target="_blank"><img class="news-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/c8dec60b47dd128d_29c7ce9bbca84dce_4911316535791925769722.jpg" />
+                        <div class="news-item-meta">
+                            <div class="news-item-title">
+                                Tác giả Hunter x Hunter mới chỉ lập tài khoản Twitter 1 ngày
+                                đã thu về 1 triệu lượt theo dỗi!
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="tray cartoon" data-type="ajax" data-block="cartoon">
+            <div class="tray-title">
+                <a href="https://mehoathinh.com/" target="_blank">
+                    <h2>Phim Hoạt Hình</h2>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
+            <div class="tray-content">
+                <div class="tray-item">
+                    <a href="https://mehoathinh.com/cau-dung-la-mot-thien-tai" target="_blank"><img
+                            class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/918d85ef637af316_84057cccf5a2fb75_694141650878132216068.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Cậu Đúng Là Một Thiên Tài</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">24,807 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://mehoathinh.com/vu-dong-can-khon-phan-3" target="_blank"><img
+                            class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/b23444546c7ff38e_933a5f5907db5fd1_2404531652126387116068.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Vũ Động Càn Khôn (Phần 3)</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">19,116 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://mehoathinh.com/khe-ho-khong-gian" target="_blank"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/0a3165ba007b0ad9_0664d5cdb335dbb6_693191650084501916068.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Khe Hở Không Gian</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">20,882 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://mehoathinh.com/bang-hoa-ma-tru" target="_blank"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/d72b9bebdd434e68_cb768d6546654c53_2467811639482188416068.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Băng Hỏa Ma Trù</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">142,061 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://mehoathinh.com/the-gioi-hoan-my" target="_blank"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/b65d2e892b145f29_10366fa0feee9190_552751619157263616068.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Thế Giới Hoàn Mỹ</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">1,182,355 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://mehoathinh.com/quan-huu-van" target="_blank"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/3d6f1eadfefc460c_912a8b783e63f906_575641650646117916068.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Quân Hữu Vân</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">23,229 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://mehoathinh.com/dau-la-dai-luc" target="_blank"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/214199df846ec0be_30a65d21fedd8bb8_667261613823016216068.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Đấu La Đại Lục</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">9,181,240 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://mehoathinh.com/trieu-hoi-su-cuoi-cung" target="_blank"><img
+                            class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/c068024d078b5513_3b25af747bbeb4f5_484751651146112716068.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Triệu Hồi Sư Cuối Cùng</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">83,678 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="tray manga" data-type="ajax" data-block="manga">
+            <div class="tray-title">
+                <a class="" href="https://vuighe.net/truyen-tranh">
+                    <h2>Truyện Tranh</h2>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
+            <div class="tray-content index">
+                <div class="manga-item">
+                    <a href="https://truyentranh24z.com/that-girl-is-not-just-cute/chap-136" target="_blank"><img
+                            class="manga-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/20597ce653fc4869_8a71e2d5a55a7e7d_2304116359110719828291.jpg" />
+                        <div class="manga-item-title">THAT GIRL IS NOT JUST CUTE</div>
+                        <div class="manga-item-meta-info">
+                            <span class="manga-item-label">Chap 136</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="manga-item">
+                    <a href="https://truyentranh24z.com/jujutsu-kaisen-chu-thuat-hoi-chien/chap-186"
+                        target="_blank"><img class="manga-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/906587cc2f226d4d_843cd593179d86b0_467071611141384745957.jpg" />
+                        <div class="manga-item-title">
+                            Jujutsu Kaisen - Chú Thuật Hồi Chiến
+                        </div>
+                        <div class="manga-item-meta-info">
+                            <span class="manga-item-label">Chap 186</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="manga-item">
+                    <a href="https://truyentranh24z.com/saisei-jutsu-souda-baikoku-shiyou/chap-29" target="_blank"><img
+                            class="manga-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/309395ffc8f3d2f1_006372eeda8f80ae_3862716424729417828291.jpg" />
+                        <div class="manga-item-title">
+                            Saisei Jutsu - Souda, Baikoku Shiyou
+                        </div>
+                        <div class="manga-item-meta-info">
+                            <span class="manga-item-label">Chap 29</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="manga-item">
+                    <a href="https://truyentranh24z.com/gia-dinh-cua-nhung-chiec-bong/chap-121" target="_blank"><img
+                            class="manga-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/4a6acc1fba84413b_249e941127f3790d_35151164352654959674.jpg" />
+                        <div class="manga-item-title">Gia Đình Của Những Chiếc Bóng</div>
+                        <div class="manga-item-meta-info">
+                            <span class="manga-item-label">Chap 121</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="manga-item">
+                    <a href="https://truyentranh24z.com/ao-ashi/chap-287" target="_blank"><img
+                            class="manga-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/43a7a1ee3d77e613_b25baeb0c3962212_35210164690142149674.jpg" />
+                        <div class="manga-item-title">Ao Ashi</div>
+                        <div class="manga-item-meta-info">
+                            <span class="manga-item-label">Chap 287</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="manga-item">
+                    <a href="https://truyentranh24z.com/jashin-chan-dropkick/chap-65" target="_blank"><img
+                            class="manga-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/05ba983db3b37db8_154ac14894225a00_29828158385658879674.jpg" />
+                        <div class="manga-item-title">Jashin-chan Dropkick</div>
+                        <div class="manga-item-meta-info">
+                            <span class="manga-item-label">Chap 65</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="tray collection">
+            <div class="tray-title">
+                <a href="https://vuighe.net/bo-suu-tap">
+                    <h2>Bộ Sưu Tập</h2>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
+            <div class="tray-content collection">
+                <div class="collection-item">
+                    <a href="https://vuighe.net/bo-suu-tap/anime-mua-xuan-2022">
+                        <img class="collection-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/803583cba5d569c2_3c4ab828e8e763bd_117964164647297779674.jpg"
+                            data-src="https://s199.imacdn.com/vg/2022/03/05/803583cba5d569c2_3c4ab828e8e763bd_117964164647297779674.jpg"
+                            alt="Anime Mùa Xuân 2022" />
+                    </a>
+                </div>
+                <div class="collection-item">
+                    <a href="https://vuighe.net/bo-suu-tap/anime-mua-dong-2022">
+                        <img class="collection-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/447d92824ddb9779_f3207425776138e9_98651164059040319674.jpg"
+                            data-src="https://s199.imacdn.com/vg/2021/12/27/447d92824ddb9779_f3207425776138e9_98651164059040319674.jpg"
+                            alt="Anime Mùa Đông 2022" />
+                    </a>
+                </div>
+                <div class="collection-item">
+                    <a href="https://vuighe.net/bo-suu-tap/anime-mua-thu-2021">
+                        <img class="collection-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/819d6a79cd97836d_6bc30ef29cbd18e5_173292163292978929674.jpg"
+                            data-src="https://s199.imacdn.com/vg/2021/09/29/819d6a79cd97836d_6bc30ef29cbd18e5_173292163292978929674.jpg"
+                            alt="Anime Mùa Thu 2021" />
+                    </a>
+                </div>
+                <div class="collection-item">
+                    <a href="https://vuighe.net/bo-suu-tap/anime-mua-he-2021">
+                        <img class="collection-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/ba2d1585b27d5133_34047b8f19e96ceb_3441016243409554118684.jpg"
+                            data-src="https://s199.imacdn.com/vg/2021/06/22/ba2d1585b27d5133_34047b8f19e96ceb_3441016243409554118684.jpg"
+                            alt="Anime Mùa Hè 2021" />
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="tray movie" data-type="ajax" data-block="movie" data-limit="6">
+            <div class="tray-title">
+                <a href="https://vuighe.net/movie">
+                    <h2>Anime Movie</h2>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
+            <div class="tray-content">
+                <div class="movie-item">
+                    <a href="https://vuighe.net/dragon-ball-super-super-hero"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/43fe43de19a7e9a0_46caf64600e28459_3566916527819018118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Dragon Ball Super: Super Hero</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">86,247 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">??? phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="movie-item">
+                    <a href="https://vuighe.net/koukaku-kidoutai-sac-2045-jizoku-kanou-sensou"><img
+                            class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/f5cbf7851820a58d_370e0ad8022e42ce_3471316521755813118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Koukaku Kidoutai: SAC_2045 - Jizoku Kanou Sensou
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">3,514 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">118 phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="movie-item">
+                    <a href="https://vuighe.net/ai-no-utagoe-wo-kikasete"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/2ec92af947e34d07_def5488874fff15f_4684516521757167118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Ai no Utagoe wo Kikasete</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">10,478 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">109 phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="movie-item">
+                    <a href="https://vuighe.net/belle-ryuu-to-sobakasu-no-hime"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/c171fa8c56383148_e88aac259f7ae204_3375616521757425118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Belle: Ryuu to Sobakasu no Hime
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">8,106 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">122 phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="movie-item">
+                    <a href="https://vuighe.net/bubble"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/235a4792e43d5189_eeda4669c9bdd6a9_4475816521757788118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Bubble</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">13,955 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">100 phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="movie-item">
+                    <a href="https://vuighe.net/summer-ghost"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/46b14fbb8eda72b5_215d183116e47567_2710416521759699118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Summer Ghost</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">15,231 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">39 phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="tray picked" data-type="ajax" data-block="picked">
+            <div class="tray-title">
+                <a href="https://vuighe.net/hom-nay-xem-gi">
+                    <h2>Hôm Nay Xem Gì</h2>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
+            <div class="tray-content">
+                <div class="tray-item">
+                    <a href="https://vuighe.net/hanasakeru-seishounen"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/hanasakeru-seishounen-large-1432285013.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Hanasakeru Seishounen</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">76,623 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">39 / 39 tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/yamada-kun-to-7-nin-no-majo"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/yamada-kun-to-7-nin-no-majo-large-1432285092.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Yamada-kun to 7-nin no Majo</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">422,938 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">12 / 12 tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/papa-no-iukoto-wo-kikinasai"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/papa-no-iukoto-wo-kikinasai-large-1432285017.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Papa no Iukoto wo Kikinasai!</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">94,051 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">13 / 13 tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/denpa-onna-to-seishun-otoko"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/026f467cc98d20a9_9bb92d266a2f372f_50003152421045829674.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Denpa Onna to Seishun Otoko</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">209,171 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">12 / 12 tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/scryed-sieu-nang-ky-binh"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/scryed-sieu-nang-ky-binh-large-1432285076.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Scryed - Siêu Năng Kỳ Binh</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">238,217 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">26 / 26 tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/doraemon-nobita-va-chuyen-phieu-luu-vao-xu-quy"><img
+                            class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/doraemon-nobita-va-chuyen-phieu-luu-vao-xu-quy-large-1432284977.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Doraemon: Nobita Và Chuyến Phiêu Lưu Vào Xứ Quỷ
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">196,917 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">98 phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/psycho-pass-sinners-of-the-system-case"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/d99c2df8a7439cb1_b81b8b3d468d3ba9_45857157078305799674.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Psycho-Pass: Sinners of the System Case
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">17,177 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">1 / 3 tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/gin-no-guardian"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/b9205297702dc1b1_4d37bea47b5e0897_11588414896848123154671.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Gin no Guardian</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">597,371 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">18 / 24 tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="tray ranking" data-type="ajax" data-block="ranking">
+            <div class="tray-title">
+                <a href="https://vuighe.net/bang-xep-hang">
+                    <h2>Bảng Xếp Hạng</h2>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
+            <div class="tray-content">
+                <div class="ranking-item l90 background-2">
+                    <a href="https://vuighe.net/world-trigger">
+                        <div class="ranking-item-thumbnail">
+                            <img
+                                src="./Vui Ghê Anime Vietsub Online_files/a06e240a491f82b6_c6c1306b9b54b6ae_4667516152215634118684.jpg" />
+                        </div>
+                        <div class="ranking-item-top">1</div>
+                    </a>
+                    <div class="ranking-item-meta">
+                        <a href="https://vuighe.net/world-trigger">
+                            <div class="ranking-item-title">World Trigger</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="ranking-item l90 background-4">
+                    <a href="https://vuighe.net/boruto-naruto-next-generations">
+                        <div class="ranking-item-thumbnail">
+                            <img
+                                src="./Vui Ghê Anime Vietsub Online_files/e3c93e9e3ae4c4d1_9a3a2fe806b4ffc6_3775516209096674118684.jpg" />
+                        </div>
+                        <div class="ranking-item-top">2</div>
+                    </a>
+                    <div class="ranking-item-meta">
+                        <a href="https://vuighe.net/boruto-naruto-next-generations">
+                            <div class="ranking-item-title">
+                                Boruto: Naruto Next Generations
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="ranking-item l90 background-6">
+                    <a href="https://vuighe.net/spy-x-family">
+                        <div class="ranking-item-thumbnail">
+                            <img
+                                src="./Vui Ghê Anime Vietsub Online_files/9033666346a72bc2_d4267122238d3fb6_2660616478676412118684.jpg" />
+                        </div>
+                        <div class="ranking-item-top">3</div>
+                    </a>
+                    <div class="ranking-item-meta">
+                        <a href="https://vuighe.net/spy-x-family">
+                            <div class="ranking-item-title">Spy x Family</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="ranking-item l90 background-8">
+                    <a href="https://vuighe.net/conan-the-movie">
+                        <div class="ranking-item-thumbnail">
+                            <img
+                                src="./Vui Ghê Anime Vietsub Online_files/6c040a27770ec024_ded1b5147578648e_5019215641124505185710.jpg" />
+                        </div>
+                        <div class="ranking-item-top">4</div>
+                    </a>
+                    <div class="ranking-item-meta">
+                        <a href="https://vuighe.net/conan-the-movie">
+                            <div class="ranking-item-title">Conan The Movie</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="ranking-item l90 background-10">
+                    <a href="https://vuighe.net/otome-game-sekai-wa-mob-ni-kibishii-sekai-desu">
+                        <div class="ranking-item-thumbnail">
+                            <img
+                                src="./Vui Ghê Anime Vietsub Online_files/6cbbc8a7af5408ea_0b18567a12d590e6_5652916490048529118684.jpg" />
+                        </div>
+                        <div class="ranking-item-top">5</div>
+                    </a>
+                    <div class="ranking-item-meta">
+                        <a href="https://vuighe.net/otome-game-sekai-wa-mob-ni-kibishii-sekai-desu">
+                            <div class="ranking-item-title">
+                                Otome Game Sekai wa Mob ni Kibishii Sekai desu
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="ranking-item l90 background-12">
+                    <a href="https://vuighe.net/baki-2018">
+                        <div class="ranking-item-thumbnail">
+                            <img
+                                src="./Vui Ghê Anime Vietsub Online_files/d54ed5f23a9d09c6_590322fbd994ef64_3603615912622278118684.jpg" />
+                        </div>
+                        <div class="ranking-item-top">6</div>
+                    </a>
+                    <div class="ranking-item-meta">
+                        <a href="https://vuighe.net/baki-2018">
+                            <div class="ranking-item-title">Baki (2018)</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tray all" data-type="ajax" data-block="film">
+            <div class="tray-title">
+                <a href="https://vuighe.net/anime">
+                    <h2>Tất Cả Anime</h2>
+                    <i class="fa-solid fa-angle-right"></i>
+                </a>
+            </div>
+            <div class="tray-content">
+                <div class="tray-item">
+                    <a href="https://vuighe.net/engage-kiss"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/eed881f066064537_9a82d1362a7ecd30_3014516538344535118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Engage Kiss</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">242 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">??? tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                        <div class="tray-item-upcoming">SẮP CHIẾU</div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a
+                        href="https://vuighe.net/kinsou-no-vermeil-gakeppuchi-majutsushi-wa-saikyou-no-yakusai-to-mahou-sekai-wo-tsukisusumu"><img
+                            class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/e441c3c91d7fa7a0_133b977d836afc39_5638216538343647118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Kinsou no Vermeil: Gakeppuchi Majutsushi wa Saikyou no Yakusai
+                                to Mahou Sekai wo Tsukisusumu
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">198 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">??? tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                        <div class="tray-item-upcoming">SẮP CHIẾU</div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/spriggan"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/2ceedf626b08fc77_8103ca39531bc17f_5068516536345127118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Spriggan</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">325 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">??? tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                        <div class="tray-item-upcoming">SẮP CHIẾU</div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/vampire-in-the-garden"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/8ca16fa6be0a123f_333ae6da97358ada_4227516526877459118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Vampire in the Garden</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">8,766 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">5 / 5 tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/isekai-meikyuu-de-harem-wo"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/34b2ee9ca5a17c55_0103e48989a34819_5267716524686427118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Isekai Meikyuu de Harem wo</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">4,708 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">??? tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                        <div class="tray-item-upcoming">SẮP CHIẾU</div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/yofukashi-no-uta"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/96fb1a23e208aacd_069dc893cf26f99a_4414316523887036118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Yofukashi no Uta</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">3,113 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">??? tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                        <div class="tray-item-upcoming">SẮP CHIẾU</div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a
+                        href="https://vuighe.net/tensei-kenja-no-isekai-life-dai-2-no-shokugyou-wo-ete-sekai-saikyou-ni-narimashita"><img
+                            class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/bf5e1d49a6e65b9c_2aa357c8fdb78d78_4367116521719627118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Tensei Kenja no Isekai Life: Dai-2 no Shokugyou wo Ete, Sekai
+                                Saikyou ni Narimashita
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">5,207 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">??? tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                        <div class="tray-item-upcoming">SẮP CHIẾU</div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/soredemo-ayumu-wa-yosetekuru"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/691749b6281b18d0_6df2acf58c9cc613_2537116521718196118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Soredemo Ayumu wa Yosetekuru</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">1,775 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">??? tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                        <div class="tray-item-upcoming">SẮP CHIẾU</div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/koukaku-kidoutai-sac-2045-jizoku-kanou-sensou"><img
+                            class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/597750eeb7258d44_286da1965ed416ca_4707816520995193118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">
+                                Koukaku Kidoutai: SAC_2045 - Jizoku Kanou Sensou
+                            </div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">3,514 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">118 phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/ai-no-utagoe-wo-kikasete"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/bfd7d3a030d3f3e2_3ef55bc458355d2c_52259165185588889674.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Ai no Utagoe wo Kikasete</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">10,478 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">109 phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/dance-dance-danseur"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/471cfd9fc5dfe09e_2abcdea077cc4cf5_3090016517329679118684.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Dance Dance Danseur</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">7,295 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">1 / 11 tập</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+                <div class="tray-item">
+                    <a href="https://vuighe.net/summer-ghost"><img class="tray-item-thumbnail"
+                            src="./Vui Ghê Anime Vietsub Online_files/be0047189c33b662_cdf2d07c6d699285_36743165123279159674.jpg" />
+                        <div class="tray-item-description">
+                            <div class="tray-item-title">Summer Ghost</div>
+                            <div class="tray-item-meta-info">
+                                <div class="tray-film-views">15,231 lượt xem</div>
+                            </div>
+                        </div>
+                        <div class="tray-film-update">39 phút</div>
+                        <div class="tray-item-play-button"><i class="fa-solid fa-play"></i></div>
+                    </a>
+                </div>
+            </div>
+            <div class="loading hidden"></div>
+            <a href="https://vuighe.net/anime">
+                <div class="tray-more">xem thêm</div>
+            </a>
+        </section>
+
+        <input type="hidden" name="load-ajax" id="load-ajax" value="true" />
+    </div>
+    <!-- /container -->
+
+    <div class="floating-action">
+        <div class="action-item action-toggle">
+            <i class="icon-assistive"></i>
+        </div>
+        <div class="action-item action-home"><i class="icon-home"></i></div>
+        <div class="action-item action-menu"><i class="icon-menu"></i></div>
+        <div class="action-item action-user"><i class="icon-person"></i></div>
+        <div class="action-item action-top"><i class="icon-up"></i></div>
+    </div>
+    <footer></footer>
+    <div class="notification-fixed"></div>
+
+    <script type="text/javascript" async="" src="./Vui Ghê Anime Vietsub Online_files/analytics.js.download"></script>
+    <script type="text/javascript" async="" src="./Vui Ghê Anime Vietsub Online_files/js"></script>
+    <script type="text/javascript" src="./Vui Ghê Anime Vietsub Online_files/bhome.js.download"></script>
+
+    <script async="" src="./Vui Ghê Anime Vietsub Online_files/js(1)"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "UA-81129102-1");
+    </script>
+
+    <div id="balloon">
+        <script src="./Vui Ghê Anime Vietsub Online_files/vuighe_balloon.js.download"></script>
+    </div>
+    <ins data-revive-zoneid="1573" data-revive-id="a2ac509200724887a4e14ea7e92c272c"></ins>
+    <script src="./Vui Ghê Anime Vietsub Online_files/asyncjs.php"></script>
+</body>
+<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+
+</html>
