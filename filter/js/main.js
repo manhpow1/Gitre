@@ -1,2 +1,66 @@
-
+var jobs = [
+    {
+      jobName: "Lập trình viên",
+      company: "FPT",
+      salary: "3.000.000d",
+      city: "Ha Noi",
+      level: "student",
+      time: "1-week",
+      status: "nhan-vien-chinh-thuc",
+      benefit: "che-do-bao-hiem",
+    },
+    {
+      jobName: "Lập trình viên",
+      company: "Zing",
+      salary: "6.000.000d",
+      city: "Ho Chi Minh",
+      level: "student",
+      time: "3-days",
+      status: "nhan-vien-chinh-thuc",
+      benefit: "du-lich",
+    },
+    {
+      jobName: "Kinh Doanh",
+      company: "Vin",
+      salary: "9.000.000d",
+      city: "Da Nang",
+      level: "employee",
+      time: "3-days",
+      status: "thoi-vu-tu-do",
+      benefit: "du-lich",
+    },
+    {
+      jobName: "kế Toán",
+      company: "Zoo",
+      salary: "5.000.000d",
+      city: "Campodia",
+      level: "employee",
+      time: "1-week",
+      status: "thoi-vu-tu-do",
+      benefit: "che-do-bao-hiem",
+    },
+  
+    {
+      jobName: "Kế Toán",
+      company: "JAV",
+      salary: "5.000.000d",
+      city: "Japan",
+      level: "employee",
+      time: "3-days",
+      status: "thoi-vu-tu-do",
+      benefit: "du-lich",
+    },
+  
+    {
+      jobName: "Lập trình viên",
+      company: "Casino",
+      salary: "9.000.000d",
+      city: "Hong Kong",
+      level: "student",
+      time: "1-week",
+      status: "nhan-vien-chinh-thuc",
+      benefit: "che-do-bao-hiem",
+    },
+  ];
+  
 
