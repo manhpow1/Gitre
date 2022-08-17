@@ -1,181 +1,454 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="all">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" media="all">
-    <link rel="stylesheet" href="a.css" media="all">
-    <title>Dominate up</title>
-  </head>
-  <body>
-    <div class="body-part">
-      <div class="container body-content">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" media="all" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
+    media="all" />
+  <title>Dominate up</title>
+</head>
+
+<body>
+  <div class="evo-search-bar">
+    <form action="/search" method="get" class="has-validation-callback">
+      <div class="input-group">
+        <input type="text" name="query" class="search-auto form-control" placeholder="Bạn mu" aria-label="Tìm kiếm" />
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="submit" aria-label="Tìm kiếm">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
+      </div>
+    </form>
+    <button class="site-header__search" role="button" title="Đóng tìm kiếm">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26.045" height="26.044">
+        <g data-name="Group 470">
+          <path
+            d="M19.736 17.918l-4.896-4.896 4.896-4.896a1.242 1.242 0 0 0-.202-1.616 1.242 1.242 0 0 0-1.615-.202l-4.896 4.896L8.127 6.31a1.242 1.242 0 0 0-1.615.202 1.242 1.242 0 0 0-.202 1.615l4.895 4.896-4.896 4.896a1.242 1.242 0 0 0 .202 1.615 1.242 1.242 0 0 0 1.616.202l4.896-4.896 4.896 4.896a1.242 1.242 0 0 0 1.615-.202 1.242 1.242 0 0 0 .202-1.615z"
+            data-name="Path 224" fill="#1c1c1c"></path>
+        </g>
+      </svg>
+    </button>
+  </div>
+  <header class="header">
+    <div class="evo-header-logo-search-cart">
+      <div class="container">
         <div class="row">
-          <div class="col-12 breadcrum-div">
-            <a href="/">Trang chủ</a>
-            <span class="bc"><i class="fas fa-chevron-right"></i> </span
-            ><a href="">Lịch khai giảng</a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 col-lg-8 classes">
-            <div class="class">
-              <div class="class-time">
-                <div class="class-year">2022</div>
-                <div class="class-datetime">
-                  <div class="class-date">30</div>
-                  <div class="class-month">Tháng 5</div>
-                </div>
-              </div>
-              <div class="class-info">
-                <div>
-                  <div class="class-title">
-                    <a
-                      href=""
-                      target="_blank"
-                      data-id="nl2"
-                      data-type="course"
-                    >
-                      Khóa học Learn AWS The Hard Way</a
-                    >
-                  </div>
-                </div>
-                <div>
-                  <div class="timetable">
-                    <div class="timetable-item">
-                      <i class="far fa-calendar-alt"></i> Thứ 2 , 4 , 6
-                    </div>
-                    <div class="timetable-item">
-                      <i class="fas fa-clock"></i> 18:30 - 21:30
-                    </div>
-                    <div class="timetable-item">
-                      <i class="fas fa-map-marker-alt"></i> Cơ sở Tố Hữu
-                    </div>
-                    <div class="clear"></div>
-                  </div>
-                  <div
-                    id="btn_register_advisory-modal"
-                    class="register"
-                    data-toggle="modal"
-                    data-target="#advisory-modal"
-                  >
-                    Đăng ký
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="class">
-              <div class="class-time">
-                <div class="class-year">2022</div>
-                <div class="class-datetime">
-                  <div class="class-date">21</div>
-                  <div class="class-month">Tháng 5</div>
-                </div>
-              </div>
-              <div class="class-info">
-                <div>
-                  <div class="class-title">
-                    <a
-                      href=""
-                      target="_blank"
-                      data-id="zrz"
-                      data-type="course"
-                    >
-                      Lộ trình đào tạo DevOps</a
-                    >
-                  </div>
-                </div>
-                <div>
-                  <div class="timetable">
-                    <div class="timetable-item">
-                      <i class="far fa-calendar-alt"></i> Thứ 3 , 7
-                    </div>
-                    <div class="timetable-item">
-                      <i class="fas fa-clock"></i> 18:30 - 21:00
-                    </div>
-                    <div class="timetable-item">
-                      <i class="fas fa-map-marker-alt"></i> Cơ sở Tố Hữu
-                    </div>
-                    <div class="clear"></div>
-                  </div>
-                  <div
-                    id="btn_register_advisory-modal"
-                    class="register"
-                    data-toggle="modal"
-                    data-target="#advisory-modal"
-                  >
-                    Đăng ký
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="class">
-              <div class="class-time">
-                <div class="class-year">2022</div>
-                <div class="class-datetime">
-                  <div class="class-date">16</div>
-                  <div class="class-month">Tháng 5</div>
-                </div>
-              </div>
-              <div class="class-info">
-                <div>
-                  <div class="class-title">
-                    <a
-                      href=""
-                      target="_blank"
-                      data-id="dl6"
-                      data-type="course"
-                    >
-                      Lộ trình đào tạo Lập trình di động iOS (3 tháng)</a
-                    >
-                  </div>
-                </div>
-                <div>
-                  <div class="timetable">
-                    <div class="timetable-item">
-                      <i class="far fa-calendar-alt"></i> Thứ 2 , 4 , 6
-                    </div>
-                    <div class="timetable-item">
-                      <i class="fas fa-clock"></i> 18:30 - 21:30
-                    </div>
-                    <div class="timetable-item">
-                      <i class="fas fa-map-marker-alt"></i> Cơ sở Tố Hữu
-                    </div>
-                    <div class="clear"></div>
-                  </div>
-                  <div
-                    id="btn_register_advisory-modal"
-                    class="register"
-                    data-toggle="modal"
-                    data-target="#advisory-modal"
-                  >
-                    Đăng ký
-                  </div>
-                </div>
-              </div>
+          <div class="col-md-4 hidden-sm hidden-xs">
+            <div class="evo-header-policy">
+              <ul class="free-ship j-free-shipping">
+                <li class="discount she-none">
+                  <a href="#" title=" Vận chuyển tiêu chuẩn trong HCM miễn phí  cho đơn hàng trên  1.000.000₫ ">
+                    Vận chuyển tiêu chuẩn trong HCM miễn phí cho đơn hàng trên
+                    <span>1.000.000₫</span></a>
+                </li>
+
+                <li class="discount animated flipInX she-block">
+                  <a href="#" title="Giao hàng nhanh trong nội thành  2 giờ  với phí ưu đãi">Giao hàng nhanh trong nội
+                    thành <span>2 giờ</span> với
+                    phí ưu đãi</a>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="col-md-12 col-lg-4">
-            <p>Cơ sở 1: Số 14, ngõ 4, Nguyễn Đình Chiểu, Hà Nội</p>
-            <div id="map" style="width: 100%">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4199.815304548001!2d105.8439388595125!3d21.013587326617117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab8ea079c829%3A0x1a3ebe79efa873b2!2sTechmaster!5e0!3m2!1svi!2s!4v1562477195802!5m2!1svi!2s"
-                width="100%"
-                height="400"
-                frameborder="0"
-                style="
-                  border-radius: 4px;
-                  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-                "
-                allowfullscreen=""
-              ></iframe>
+          <div class="col-md-4 logo evo-header-mobile">
+            <button type="button" class="evo-flexitem evo-flexitem-fill navbar-toggle collapsed visible-sm visible-xs"
+              id="trigger-mobile" aria-label="Menu Mobile">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="logo-wrapper" title="C3 Gundam VN Build Store">
+              <img src="//bizweb.dktcdn.net/100/382/833/themes/759628/assets/logo.png?1650954698162"
+                data-src="//bizweb.dktcdn.net/100/382/833/themes/759628/assets/logo.png?1650954698162"
+                alt="C3 Gundam VN Build Store" class="lazy img-responsive center-block loaded"
+                data-was-processed="true" />
+            </a>
+            <div class="evo-flexitem evo-flexitem-fill visible-sm visible-xs">
+              <a href="javascript:void(0);" class="site-header-search" rel="nofollow" title="Tìm kiếm"
+                aria-label="Tìm kiếm">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="/cart" title="Giỏ hàng" rel="nofollow">
+                <svg viewBox="0 0 100 100" data-radium="true" style="width: 25px">
+                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g transform="translate(-286.000000, -515.000000)" fill="#fff">
+                      <path
+                        d="M374.302082,541.184324 C374.044039,539.461671 372.581799,538.255814 370.861517,538.255814 L351.078273,538.255814 L351.078273,530.159345 C351.078273,521.804479 344.283158,515 335.93979,515 C327.596422,515 320.801307,521.804479 320.801307,530.159345 L320.801307,538.255814 L301.018063,538.255814 C299.297781,538.255814 297.835541,539.461671 297.577499,541.184324 L286.051608,610.951766 C285.87958,611.985357 286.137623,613.018949 286.825735,613.794143 C287.513848,614.569337 288.460003,615 289.492173,615 L382.387408,615 L382.473422,615 C384.451746,615 386,613.449612 386,611.468562 C386,611.037898 385.913986,610.693368 385.827972,610.348837 L374.302082,541.184324 L374.302082,541.184324 Z M327.854464,530.159345 C327.854464,525.680448 331.467057,522.062877 335.93979,522.062877 C340.412524,522.062877 344.025116,525.680448 344.025116,530.159345 L344.025116,538.255814 L327.854464,538.255814 L327.854464,530.159345 L327.854464,530.159345 Z M293.62085,608.023256 L304.028557,545.318691 L320.801307,545.318691 L320.801307,565.043066 C320.801307,567.024117 322.349561,568.574505 324.327886,568.574505 C326.30621,568.574505 327.854464,567.024117 327.854464,565.043066 L327.854464,545.318691 L344.025116,545.318691 L344.025116,565.043066 C344.025116,567.024117 345.57337,568.574505 347.551694,568.574505 C349.530019,568.574505 351.078273,567.024117 351.078273,565.043066 L351.078273,545.318691 L367.851024,545.318691 L378.25873,608.023256 L293.62085,608.023256 L293.62085,608.023256 Z">
+                      </path>
+                    </g>
+                  </g>
+                </svg>
+                <span class="count_item_pr">0</span>
+              </a>
             </div>
-            <br />
+          </div>
+          <div class="col-md-4 evo-header-hotline-cart hidden-sm hidden-xs">
+            <div class="hotline">
+              <div class="user-content-right">
+                <a href="tel:098.345.3535" title="Hỗ trợ mua hàng 098.345.3535">
+                  <span class="evo-hotline">098.345.3535</span>
+                  <span class="evo-title">Hỗ trợ mua hàng</span>
+                </a>
+              </div>
+            </div>
+            <div class="evo-search">
+              <a href="javascript:void(0);" class="site-header-search" rel="nofollow" title="Tìm kiếm">
+                <svg viewBox="0 0 451 451" style="width: 25px">
+                  <g fill="#fff">
+                    <path d="M447.05,428l-109.6-109.6c29.4-33.8,47.2-77.9,47.2-126.1C384.65,86.2,298.35,0,192.35,0C86.25,0,0.05,86.3,0.05,192.3
+                    s86.3,192.3,192.3,192.3c48.2,0,92.3-17.8,126.1-47.2L428.05,447c2.6,2.6,6.1,4,9.5,4s6.9-1.3,9.5-4
+                    C452.25,441.8,452.25,433.2,447.05,428z M26.95,192.3c0-91.2,74.2-165.3,165.3-165.3c91.2,0,165.3,74.2,165.3,165.3
+                    s-74.1,165.4-165.3,165.4C101.15,357.7,26.95,283.5,26.95,192.3z"></path>
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <div class="evo-account">
+              <a href="javascript:void(0);" title="Tài khoản" rel="nofollow">
+                <img src="//bizweb.dktcdn.net/100/382/833/themes/759628/assets/account.png?1650954698162"
+                  alt="C3 Gundam VN Build Store" class="img-responsive" />
+              </a>
+              <ul>
+                <li>
+                  <a rel="nofollow" href="/account/login" title="Đăng nhập">Đăng nhập</a>
+                </li>
+                <li>
+                  <a rel="nofollow" href="/account/register" title="Đăng ký">Đăng ký</a>
+                </li>
+              </ul>
+            </div>
+            <div class="evo-cart mini-cart">
+              <a href="/cart" title="Giỏ hàng" rel="nofollow">
+                <svg viewBox="0 0 100 100" data-radium="true" style="width: 25px">
+                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g transform="translate(-286.000000, -515.000000)" fill="#fff">
+                      <path
+                        d="M374.302082,541.184324 C374.044039,539.461671 372.581799,538.255814 370.861517,538.255814 L351.078273,538.255814 L351.078273,530.159345 C351.078273,521.804479 344.283158,515 335.93979,515 C327.596422,515 320.801307,521.804479 320.801307,530.159345 L320.801307,538.255814 L301.018063,538.255814 C299.297781,538.255814 297.835541,539.461671 297.577499,541.184324 L286.051608,610.951766 C285.87958,611.985357 286.137623,613.018949 286.825735,613.794143 C287.513848,614.569337 288.460003,615 289.492173,615 L382.387408,615 L382.473422,615 C384.451746,615 386,613.449612 386,611.468562 C386,611.037898 385.913986,610.693368 385.827972,610.348837 L374.302082,541.184324 L374.302082,541.184324 Z M327.854464,530.159345 C327.854464,525.680448 331.467057,522.062877 335.93979,522.062877 C340.412524,522.062877 344.025116,525.680448 344.025116,530.159345 L344.025116,538.255814 L327.854464,538.255814 L327.854464,530.159345 L327.854464,530.159345 Z M293.62085,608.023256 L304.028557,545.318691 L320.801307,545.318691 L320.801307,565.043066 C320.801307,567.024117 322.349561,568.574505 324.327886,568.574505 C326.30621,568.574505 327.854464,567.024117 327.854464,565.043066 L327.854464,545.318691 L344.025116,545.318691 L344.025116,565.043066 C344.025116,567.024117 345.57337,568.574505 347.551694,568.574505 C349.530019,568.574505 351.078273,567.024117 351.078273,565.043066 L351.078273,545.318691 L367.851024,545.318691 L378.25873,608.023256 L293.62085,608.023256 L293.62085,608.023256 Z">
+                      </path>
+                    </g>
+                  </g>
+                </svg>
+                <span class="count_item_pr">0</span>
+              </a>
+              <div class="top-cart-content">
+                <ul id="cart-sidebar" class="mini-products-list count_li">
+                  <div class="no-item">
+                    <p>Không có sản phẩm nào trong giỏ hàng.</p>
+                  </div>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </body>
+    <div class="evo-main-nav">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 no-padding">
+            <div class="mobile-main-menu hidden-lg hidden-md">
+              <div class="drawer-header">
+                <div id="close-nav">
+                  <svg viewBox="0 0 100 100" data-radium="true" style="width: 16px">
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g transform="translate(-645.000000, -879.000000)" fill="#000">
+                        <path
+                          d="M743.998989,926.504303 L697.512507,880.032702 C696.909905,879.430293 695.962958,879 695.016011,879 C694.069064,879 693.122117,879.430293 692.519515,880.032702 L646.033033,926.504303 C644.655656,927.881239 644.655656,930.118761 646.033033,931.495697 C646.721722,932.184165 647.582582,932.528399 648.529529,932.528399 C649.476476,932.528399 650.337337,932.184165 651.026025,931.495697 L691.486482,891.048193 L691.486482,975.471601 C691.486482,977.450947 693.036031,979 695.016011,979 C696.995991,979 698.54554,977.450947 698.54554,975.471601 L698.54554,891.048193 L739.005997,931.495697 C740.383374,932.872633 742.621612,932.872633 743.998989,931.495697 C745.376366,930.118761 745.29028,927.881239 743.998989,926.504303 L743.998989,926.504303 Z"
+                          transform="translate(695.000000, 929.000000) rotate(-90.000000) translate(-695.000000, -929.000000) ">
+                        </path>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                <a href="/" class="logo-wrapper" title="C3 Gundam VN Build Store">
+                  <img
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+                    data-src="//bizweb.dktcdn.net/100/382/833/themes/759628/assets/logo.png?1650954698162"
+                    alt="C3 Gundam VN Build Store" class="lazy img-responsive center-block" />
+                </a>
+              </div>
+              <div class="ul-first-menu">
+                <a rel="nofollow" href="/account/login" title="Đăng nhập">Đăng nhập</a>
+                <a rel="nofollow" href="/account/register" title="Đăng ký">Đăng ký</a>
+              </div>
+            </div>
+
+            <ul id="nav" class="nav">
+              <li class="nav-item has-childs has-mega">
+                <a href="/gundam-bandai" class="nav-link" title="GUNDAM BANDAI">GUNDAM BANDAI
+                  <i class="fa fa-angle-down" data-toggle="dropdown"></i></a>
+
+                <div class="mega-content">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <ul class="level0">
+                        <li class="level1 item">
+                          <a class="hmega" href="/sd-superror-defender" title="SD - SUPERROR DEFENDER">SD - SUPERROR
+                            DEFENDER</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-iron-blooded-orphans" title="HG IRON BLOODED ORPHAN">HG IRON
+                            BLOODED ORPHAN</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-universal-century" title="HG UNIVERSAL CENTURY">HG UNIVERSAL
+                            CENTURY</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/rg-real-grade-1-144" title="RG - REAL GRADE 1/144">RG - REAL GRADE
+                            1/144</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-gundam-thunderbolt" title="HG GUNDAM THUNDERBOLT">HG GUNDAM
+                            THUNDERBOLT</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-gundam-the-origin" title="HG GUNDAM THE ORIGIN">HG GUNDAM THE
+                            ORIGIN</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/mg-hirm-re-100-1-100" title="MG - HIRM - RE/100 - 1/100">MG - HIRM -
+                            RE/100 - 1/100</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-reconguista-in-g-age" title="HG RECONGUISTA IN G - AGE">HG
+                            RECONGUISTA IN G - AGE</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-gundam-seed" title="HG GUNDAM SEED">HG GUNDAM SEED</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/pg-1-60-mega-size-1-48" title="PG 1/60 - MEGA SIZE 1/48">PG 1/60 -
+                            MEGA SIZE 1/48</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-gundam-build-diver" title="HG GUNDAM BUILD DIVER">HG GUNDAM BUILD
+                            DIVER</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-gundam-00" title="HG GUNDAM 00">HG GUNDAM 00</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/figure-rise-haropla" title="FIGURE RISE - HAROPLA">FIGURE RISE -
+                            HAROPLA</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-gundam-build-fighter" title="HG GUNDAM BUILD FIGHTER">HG GUNDAM
+                            BUILD FIGHTER</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/metal-build" title="METAL BUILD">METAL BUILD</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/pettit-gguy-pettit-rits" title="PETTITGGUY - PETTIT RITS">PETTITGGUY -
+                            PETTIT RITS</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-gundam-breaker-battlogue" title="HG BREAKER BATTLOGUE">HG BREAKER
+                            BATTLOGUE</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/hg-gundam-wing" title="HG GUNDAM WING">HG GUNDAM WING</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/dong-khac" title="DÒNG KHÁC">DÒNG KHÁC</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/entry-nguoi-moi" title="ENTRY - NGƯỜI MỚI CHƠI">ENTRY - NGƯỜI MỚI
+                            CHƠI</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/kyoukai-senki" title="KYOUKAI SENKI">KYOUKAI SENKI</a>
+                        </li>
+
+                        <li class="level1 item">
+                          <a class="hmega" href="/30mm" title="30MM">30MM</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-6 image-mega">
+                      <a href="https://c3gundam.com/gundam-bandai?q=collections:2096899&amp;page=1&amp;sortby=created_on:desc&amp;view=grid"
+                        title="GUNDAM BANDAI">
+                        <img src="//bizweb.dktcdn.net/100/382/833/themes/759628/assets/mega-1-image-1.jpg?1650954698162"
+                          data-src="//bizweb.dktcdn.net/100/382/833/themes/759628/assets/mega-1-image-1.jpg?1650954698162"
+                          alt="GUNDAM BANDAI" class="lazy img-responsive center-block loaded"
+                          data-was-processed="true" />
+                      </a>
+                      <a href="https://c3gundam.com/tin-tuc" title="GUNDAM BANDAI">
+                        <img src="//bizweb.dktcdn.net/100/382/833/themes/759628/assets/mega-1-image-2.jpg?1650954698162"
+                          data-src="//bizweb.dktcdn.net/100/382/833/themes/759628/assets/mega-1-image-2.jpg?1650954698162"
+                          alt="GUNDAM BANDAI" class="lazy img-responsive center-block loaded"
+                          data-was-processed="true" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="nav-item has-childs">
+                <a href="/gundam-china" class="nav-link" title="GUNDAM CHINA">GUNDAM CHINA
+                  <i class="fa fa-angle-down" data-toggle="dropdown"></i></a>
+
+                <ul class="dropdown-menu">
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/kit-china" title="KIT CHINA">KIT CHINA</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/metal-build-china" title="METAL BUILD CHINA">METAL BUILD CHINA</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item has-childs">
+                <a href="/pokemon" class="nav-link" title="POKEMON">POKEMON
+                  <i class="fa fa-angle-down" data-toggle="dropdown"></i></a>
+
+                <ul class="dropdown-menu">
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/pokemon-plastic-model" title="POKEMON PLASTIC MODEL">POKEMON PLASTIC
+                      MODEL</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/re-ment" title="RE-MENT">RE-MENT</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/bootleg" title="BOOTLEG">BOOTLEG</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item has-childs">
+                <a href="/dong-kit-khac" class="nav-link" title="DÒNG KIT KHÁC">DÒNG KIT KHÁC
+                  <i class="fa fa-angle-down" data-toggle="dropdown"></i></a>
+
+                <ul class="dropdown-menu">
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/kamen-rider" title="KAMEN RIDER">KAMEN RIDER</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/dau-si-lbx" title="ĐẤU SĨ LBX">ĐẤU SĨ LBX</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/samurai" title="SAMURAI">SAMURAI</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/onepiece" title="ONEPIECE - VUA HẢI TẶC">ONEPIECE - VUA HẢI TẶC</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/doraemon" title="DORAEMON">DORAEMON</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/dragon-ball" title="DRAGON BALL - 7 VIÊN NGỌC RỒNG">DRAGON BALL - 7 VIÊN
+                      NGỌC RỒNG</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/fate-grand-order" title="FATE/GRAND ORDER">FATE/GRAND ORDER</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/mecha-girl-modelkit" title="MECHA GIRL MODELKIT">MECHA GIRL MODELKIT</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/kotobukiya" title="KOTOBUKIYA">KOTOBUKIYA</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/digimon" title="DIGIMON">DIGIMON</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/super-robot-wars" title="SUPER ROBOT WARS">SUPER ROBOT WARS</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/shokugan-modeling-project-smp"
+                      title="SHOKUGAN MODELING PROJECT (SMP)">SHOKUGAN MODELING PROJECT (SMP)</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/gacha-gachapon" title="GACHA GACHAPON">GACHA GACHAPON</a>
+              </li>
+
+              <li class="evo-hover-left nav-item has-childs">
+                <a href="/accesories" class="nav-link" title="ACCESORIES">ACCESORIES
+                  <i class="fa fa-angle-down" data-toggle="dropdown"></i></a>
+
+                <ul class="dropdown-menu">
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/base-gundam" title="BASE GUNDAM">BASE GUNDAM</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/decal-nuoc" title="DECAL NƯỚC">DECAL NƯỚC</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/dung-cu-lap-mo-hinh-tool" title="DỤNG CỤ LẮP MÔ HÌNH - TOOL">DỤNG CỤ LẮP
+                      MÔ HÌNH - TOOL</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/cement-panel-line" title="CEMENT - PANEL LINE">CEMENT - PANEL LINE</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/son-mo-hinh" title="SƠN MÔ HÌNH">SƠN MÔ HÌNH</a>
+                  </li>
+
+                  <li class="nav-item-lv2">
+                    <a class="nav-link" href="/custom-part" title="CUSTOM PART">CUSTOM PART</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/gundam-2nd" title="GUNDAM 2ND">GUNDAM 2ND</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="/preorder" title="PREORDER">PREORDER</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</body>
+
 </html>
