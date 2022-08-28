@@ -1,6 +1,29 @@
 /*---------------------
   Shop
 -----------------------*/
+.product-details {
+    padding-top: 80px;
+}
+
+.product__details__pic__item {
+    margin-bottom: 20px;
+
+    img {
+        min-width: 100%;
+    }
+}
+
+.product__details__pic__slider {
+
+    img {
+        cursor: pointer;
+    }
+
+    &.owl-carousel .owl-item img {
+        width: auto;
+    }
+}
+
 .product__details__pic {
     text-align: center;
     background: #f3f2ee;
