@@ -139,7 +139,7 @@ ol {
 
 .spad {
 	padding-top: 100px;
-	padding-bottom: 100px;
+	padding-bottom: 25px;
 }
 
 .text-white h1,
@@ -413,7 +413,7 @@ ol {
 
 .header__menu {
 	text-align: center;
-	padding: 26px 0 25px;
+	padding: 32px 0 32px;
 }
 
 .header__menu ul li {
@@ -2214,9 +2214,10 @@ ol {
 }
 
 .breadcrumb-blog h2 {
-	color: #ffffff;
+	color: #fb8122;
 	font-size: 60px;
 	font-weight: 700;
+	font-style: italic;
 }
 
 /*---------------------
@@ -2688,29 +2689,29 @@ ol {
 	width: 100%;
 	border: 1px solid #e1e1e1;
 	font-size: 14px;
-	color: #b7b7b7;
+	color: #fb8122;
 	padding-left: 20px;
 	margin-bottom: 20px;
 }
 
 .checkout__input input::-webkit-input-placeholder {
-	color: #b7b7b7;
+	color: #fb8122;
 }
 
 .checkout__input input::-moz-placeholder {
-	color: #b7b7b7;
+	color: #fb8122;
 }
 
 .checkout__input input:-ms-input-placeholder {
-	color: #b7b7b7;
+	color: #fb8122;
 }
 
 .checkout__input input::-ms-input-placeholder {
-	color: #b7b7b7;
+	color: #fb8122;
 }
 
 .checkout__input input::placeholder {
-	color: #b7b7b7;
+	color: #fb8122;
 }
 
 .checkout__input__checkbox label {
@@ -3373,6 +3374,12 @@ ol {
 .blog__details__comment form button {
 	letter-spacing: 4px;
 	padding: 14px 35px;
+	color:#fb8122;
+	transition: 0.3s;
+}
+.blog__details__comment form button:hover{
+	color: #1d2228;
+	background-color: #fb8122;
 }
 
 /*---------------------
@@ -3492,6 +3499,13 @@ ol {
 .contact__form button {
 	letter-spacing: 4px;
 	padding: 14px 35px;
+	color: #fb8122;
+	transition: 0.3s;
+}
+
+.contact__form button:hover{
+	color: #1d2228;
+	background-color: #fb8122;
 }
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
