@@ -1953,10 +1953,6 @@ ol {
 	color: #b7b7b7;
 }
 
-.product__details__tab {
-	padding-top: 60px;
-}
-
 .product__details__tab .nav-tabs {
 	border-bottom: 1px solid #e5e5e5;
 	-webkit-box-pack: center;
