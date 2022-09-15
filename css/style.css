@@ -605,6 +605,7 @@ ol {
 	-webkit-transition: all, 0.3s;
 	-o-transition: all, 0.3s;
 	transition: all, 0.3s;
+	-webkit-text-stroke: 0.5px #1d2228;
 }
 
 .hero__text h2 {
@@ -619,6 +620,7 @@ ol {
 	-webkit-transition: all, 0.6s;
 	-o-transition: all, 0.6s;
 	transition: all, 0.6s;
+	-webkit-text-stroke: 1px #fb8122;
 }
 
 .hero__text p {
@@ -632,6 +634,7 @@ ol {
 	-webkit-transition: all, 0.9s;
 	-o-transition: all, 0.9s;
 	transition: all, 0.9s;
+	-webkit-text-stroke: 0.3px #fb8122;
 }
 
 .hero__text .primary-btn {
@@ -710,10 +713,11 @@ ol {
 }
 
 .banner__item__text h2 {
-	color: #111111;
+	color: #1d2228;
 	font-weight: 700;
 	line-height: 46px;
 	margin-bottom: 10px;
+	
 }
 
 .banner__item__text a {
@@ -2214,6 +2218,7 @@ ol {
 	font-size: 60px;
 	font-weight: 700;
 	font-style: italic;
+	-webkit-text-stroke: 2px #1d2228;
 }
 
 /*---------------------
